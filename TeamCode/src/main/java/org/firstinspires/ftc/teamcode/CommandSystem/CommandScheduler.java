@@ -1,14 +1,15 @@
 package org.firstinspires.ftc.teamcode.CommandSystem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CommandScheduler {
     private static CommandScheduler instance;
-    ArrayList<Subsystem> subsystems;
-    ArrayList<Subsystem> activeSubsystems;
-    ArrayList<Command> activeCommands;
-    ArrayList<Binding> bindings;
-    ArrayList<Command> defaultCommands;
+    List<Subsystem> subsystems = new ArrayList<>();
+    List<Subsystem> activeSubsystems =  new ArrayList<>();
+    List<Command> activeCommands = new ArrayList<>();
+    List<Binding> bindings = new ArrayList<>();
+    List<Command> defaultCommands = new ArrayList<>();
 
     public static CommandScheduler getInstance() {
         if (instance == null) {

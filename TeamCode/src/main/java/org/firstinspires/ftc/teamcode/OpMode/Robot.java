@@ -8,10 +8,11 @@ import org.firstinspires.ftc.teamcode.CommandSystem.CommandScheduler;
 @TeleOp
 public class Robot extends OpMode {
 
-    private final RobotContainer robotContainer = new RobotContainer(gamepad1, gamepad2, hardwareMap);
+    private RobotContainer robotContainer;
 
     @Override
     public void init(){
+        robotContainer = new RobotContainer(gamepad1, gamepad2, hardwareMap);
     }
 
     @Override

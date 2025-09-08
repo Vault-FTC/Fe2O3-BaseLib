@@ -21,9 +21,7 @@ public class RobotContainer {
     public RobotContainer(Gamepad gamepadA, Gamepad gamepadB, HardwareMap hardwareMap){
         this.controllerA = new Controller(gamepadA);
         this.controllerB = new Controller(gamepadB);
-        shooterSys = new ShooterSubsystem(hardwareMap);
-
-
+        //shooterSys = new ShooterSubsystem(hardwareMap);
     }
 
     private void configureBindings(){

@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode.CommandSystem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ParallelCommandGroup extends Command{
-    ArrayList<Command> commands;
+    List<Command> commands = new ArrayList<>();
     public ParallelCommandGroup(Command... givenCommands){
         for (Command command : givenCommands){
             required.addAll(command.required);

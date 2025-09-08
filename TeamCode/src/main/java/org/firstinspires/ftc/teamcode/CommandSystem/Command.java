@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode.CommandSystem;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Command {
-    protected ArrayList<Subsystem> required;
+    protected List<Subsystem> required = new ArrayList<>();
 
     public void init(){
     }

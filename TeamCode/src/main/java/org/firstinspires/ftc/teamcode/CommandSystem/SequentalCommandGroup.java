@@ -4,9 +4,10 @@ import static java.lang.Thread.interrupted;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class SequentalCommandGroup extends Command{
-    ArrayList<Command> commands;
+    List<Command> commands = new ArrayList<>();
 
     boolean finished = false;
     int index = 0;
@@ -26,7 +27,6 @@ public class SequentalCommandGroup extends Command{
             index = 0;
             finished = true;
         }
-
     }
 
     @Override

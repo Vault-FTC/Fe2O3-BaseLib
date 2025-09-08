@@ -7,7 +7,7 @@ public class CommandScheduler {
     private static CommandScheduler instance;
     List<Subsystem> subsystems = new ArrayList<>();
     List<Subsystem> activeSubsystems =  new ArrayList<>();
-    List<Command> activeCommands = new ArrayList<>();
+    public final List<Command> activeCommands = new ArrayList<>();
     List<Binding> bindings = new ArrayList<>();
     List<Command> defaultCommands = new ArrayList<>();
 
@@ -18,7 +18,10 @@ public class CommandScheduler {
         return instance;
     }
 
-    public void schedule(Command command){};
+    public void schedule(Command command){
+        command.init();
+        activeCommands.add(command);
+    }
     public void register(Subsystem subsystem){
         subsystems.add(subsystem);
     }
@@ -27,7 +30,7 @@ public class CommandScheduler {
         activeCommands.remove(command);
     };
 
-    public void addBinding(Binding binding){};
+    public void addBinding(Binding binding){bindings.add(binding);};
 
     public void run(){
         for (Binding binding : bindings){
@@ -41,7 +44,20 @@ public class CommandScheduler {
             }
 
             boolean canRun = true;
-            for (Subsystem subsystem: command.required){
+            for (Subsystem subsystem : command.required){
+                if (activeSubsystems.contains(subsystem)){
+                    canRun = false;
+                    break;
+                }
+                activeSubsystems.add(subsystem);
+            }
+            if (canRun){
+                command.execute();
+            }
+        }
+        for (Command command : defaultCommands){
+            boolean canRun = true;
+            for (Subsystem subsystem : command.required){
                 if (activeSubsystems.contains(subsystem)){
                     canRun = false;
                     break;
@@ -56,4 +72,5 @@ public class CommandScheduler {
             subsystem.periodic();
         }
     }
+
 }

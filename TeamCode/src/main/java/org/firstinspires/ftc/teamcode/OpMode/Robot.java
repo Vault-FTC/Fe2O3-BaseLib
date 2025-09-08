@@ -12,11 +12,13 @@ public class Robot extends OpMode {
 
     @Override
     public void init(){
-        robotContainer = new RobotContainer(gamepad1, gamepad2, hardwareMap);
+        robotContainer = new RobotContainer(gamepad1, gamepad2, hardwareMap, telemetry);
     }
 
     @Override
     public void loop(){
         CommandScheduler.getInstance().run();
+        telemetry.addData("CommandListSize", CommandScheduler.getInstance().activeCommands.size());
+        telemetry.update();
     }
 }

@@ -11,6 +11,9 @@ import org.firstinspires.ftc.teamcode.CommandSystem.Command;
 import org.firstinspires.ftc.teamcode.CommandSystem.CommandScheduler;
 import org.firstinspires.ftc.teamcode.CommandSystem.InstantCommand;
 import org.firstinspires.ftc.teamcode.Controllers.Controller;
+import org.firstinspires.ftc.teamcode.OpMode.RobotCommands.DefaultCommands.DriveDefault;
+import org.firstinspires.ftc.teamcode.OpMode.RobotCommands.ReleaseCommand;
+import org.firstinspires.ftc.teamcode.OpMode.RobotCommands.ShootCommand;
 import org.firstinspires.ftc.teamcode.OpMode.Subsystems.DriveSubsystem;
 import org.firstinspires.ftc.teamcode.OpMode.Subsystems.ShooterSubsystem;
 
@@ -24,19 +27,28 @@ public class RobotContainer {
 
     Telemetry telemetry;
     // Default Commands
+    DriveDefault driveDefault;
 
-    Servo servo;
 
     public RobotContainer(Gamepad gamepadA, Gamepad gamepadB, HardwareMap hardwareMap, Telemetry telemetry){
+        this.telemetry = telemetry;
+
+        // Gamepads
         this.controllerA = new Controller(gamepadA);
         this.controllerB = new Controller(gamepadB);
-        //shooterSys = new ShooterSubsystem(hardwareMap);
-        this.telemetry = telemetry;
-        servo = hardwareMap.get(Servo.class, "gate");
+
+        // Subsystems
+        shooterSys = new ShooterSubsystem(hardwareMap, telemetry);
+        driveSubsystem = new DriveSubsystem(hardwareMap, telemetry);
+
+        // Default Commands
+        driveDefault = new DriveDefault(driveSubsystem, controllerA.getLSSupp(), controllerA.getRightX());
+        driveSubsystem.addDefault(driveDefault);
+
         configureBindings();
     }
     private void configureBindings(){
-        controllerA.x().onTrue(new InstantCommand(() -> servo.setPosition(0)));
-        controllerA.a().onTrue(new InstantCommand(() -> servo.setPosition(1)));
+        controllerA.a().whileTrue(new ReleaseCommand(shooterSys, 4));
+        controllerA.b().whileTrue(new ShootCommand(shooterSys, .8));
     }
 }

@@ -8,6 +8,7 @@ import org.firstinspires.ftc.teamcode.CommandSystem.CommandScheduler;
 @TeleOp
 public class Robot extends OpMode {
 
+    //This is used, because it calls methods that talk to the Command Scheduler. DO NOT REMOVE
     private RobotContainer robotContainer;
 
     @Override
@@ -18,7 +19,6 @@ public class Robot extends OpMode {
     @Override
     public void loop(){
         CommandScheduler.getInstance().run();
-        telemetry.addData("CommandListSize", CommandScheduler.getInstance().activeCommands.size());
         telemetry.update();
     }
 }
